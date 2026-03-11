@@ -50,7 +50,7 @@
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
                             <input type="password" class="form-control" name="password">
-                            <small class="text-muted">Mínimo 8 caracteres</small>
+                            <small class="text-muted">Su contraseña deberá tener un mínimo 8 caracteres, mayusculas, minusculas, números y caracteres especiales(@$!%*#?&)</small>
                         </div>
 
                         <div class="mb-3">
