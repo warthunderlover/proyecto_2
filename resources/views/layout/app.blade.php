@@ -24,18 +24,19 @@
 
             <li class="nav-item mb-2">
                 
-                <a href="/productos" class="nav-link text-white {{ request()->is('productos') ? 'active bg-secondary' : '' }}">
-                    Ver Productos
-                </a>
-            </li>
-
-            <li class="nav-item mb-2">
-                
                 <a href="{{ route('users.index') }}" 
                     class="nav-link text-white {{ request()->is('users*') ? 'active bg-secondary' : '' }}">
                     Administrar Usuarios
                 </a>
             </li>
+
+            <li class="nav-item mb-2">
+                
+                <a href="/productos" class="nav-link text-white {{ request()->is('productos') ? 'active bg-secondary' : '' }}">
+                    Ver Productos
+                </a>
+            </li>
+
 
             <li class="nav-item mb-2">
                 
