@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .text-success { color: green; }
+        .text-danger { color: red; }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -25,37 +29,42 @@
                         </div>
                     @endif
 
-                    <form action="/registro" method="POST">
+                    <form action="/registro" method="POST" id="formRegistro">
                         @csrf
                         
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nombres</label>
                                 <input type="text" class="form-control" name="nombres" 
-                                       value="{{ old('nombres') }}">
+                                       value="{{ old('nombres') }}" required pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]+">
+                                <small id="helpNombres">Solo letras, sin espacios ni guiones.</small>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Apellidos</label>
                                 <input type="text" class="form-control" name="apellidos" 
-                                       value="{{ old('apellidos') }}">
+                                       value="{{ old('apellidos') }}" required pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]+">
+                                <small id="helpApellidos">Solo letras, sin espacios ni guiones.</small>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email" class="form-control" name="email" 
-                                   value="{{ old('email') }}">
+                                   value="{{ old('email') }}" required>
+                            <small>Debe ser un email válido.</small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" name="password">
-                            <small class="text-muted">Su contraseña deberá tener un mínimo 8 caracteres, mayusculas, minusculas, números y caracteres especiales(@$!%*#?&)</small>
+                            <input type="password" class="form-control" name="password" required
+                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&\-_]).{8,}">
+                            <small>Mínimo 8 caracteres, incluye mayúscula, minúscula, número y algún carácter especial (@ $ ! % * # ? & - _ ).</small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Confirmar Contraseña</label>
-                            <input type="password" class="form-control" name="password_confirmation">
+                            <input type="password" class="form-control" name="password_confirmation" required>
+                            <small>Debe coincidir con la contraseña anterior.</small>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">Registrarse</button>
@@ -69,6 +78,21 @@
         </div>
     </div>
 </div>
+
+<script>
+document.querySelectorAll('#formRegistro input').forEach(input => {
+    input.addEventListener('input', () => {
+        const small = input.nextElementSibling;
+        if(input.validity.valid){
+            small.classList.remove('text-danger');
+            small.classList.add('text-success');
+        } else {
+            small.classList.remove('text-success');
+            small.classList.add('text-danger');
+        }
+    });
+});
+</script>
 
 </body>
 </html>

@@ -7,10 +7,11 @@ use App\Models\RegistroSeguridad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    
     public function mostrarLogin()
     {
         return view('/login');
@@ -24,27 +25,29 @@ class AuthController extends Controller
     public function registro(Request $request)
     {
         $validado = $request->validate([
-            'nombres' => 'required|string|min:3|max:100',
-            'apellidos' => 'required|string|min:3|max:100',
+            'nombres' => ['required','string','min:3','max:100','regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/'],
+            'apellidos' => ['required','string','min:3','max:100','regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/'],
             'email' => 'required|email|unique:users|max:255',
             'password' => [
                 'required',
                 'min:8',
-                'confirmed',  
-                'regex:/[a-z]/',      
-                'regex:/[A-Z]/',      
-                'regex:/[0-9]/',      
-                'regex:/[@$!%*#?&]/',
+                'confirmed',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&\-_]/',
             ],
         ], [
-            'password.regex' => 'La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales (@$!%*#?&).',
+            'password.regex' => 'La contraseña debe contener mayúsculas, minúsculas, números y al menos un carácter especial (@ $ ! % * # ? & - _).',
             'email.unique' => 'Este email ya está registrado.',
-            'nombres.required' => 'El campo nombres es obligatorio.',
-            'apellidos.required' => 'El campo apellidos es obligatorio.',
-            'email.required' => 'Es necesario que introduzca un email',
-            'password.required' => 'Es necesario que introduzca una contraseña',
+            'nombres.required' => 'El campo nombres es necesario.',
+            'apellidos.required' => 'El campo apellidos es necesario.',
+            'email.required' => 'Se necesita un email.',
+            'password.required' => 'Se necesita una contraseña.',
             'password.confirmed' => 'Las contraseñas no coinciden.',
-            'password.min' => 'Longitud minima de 8'
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'nombres.regex' => 'El nombre solo puede contener letras, sin espacios ni guiones.',
+            'apellidos.regex' => 'El apellido solo puede contener letras, sin espacios ni guiones.',
         ]);
 
         $usuario = User::create([
@@ -62,26 +65,31 @@ class AuthController extends Controller
             'detalles' => 'Usuario registrado desde ' . $request->userAgent(),
             'nivel_riesgo' => 'bajo',
         ]);
+
         Auth::login($usuario);
         return redirect()->route('pagina');
     }
 
-  
     public function login(Request $request)
     {
+        $clave = Str::lower($request->email).'|'.$request->ip();
+
+        if (RateLimiter::tooManyAttempts($clave, 5)) {
+            return back()->with('error', 'Demasiados intentos. Intente nuevamente en 1 minuto.');
+        }
+
         $credenciales = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-        ],
-        [
-            'email.required' => 'Proporcione un email',
-            'password.required' => 'Introduzca su contraseña',
-            'email.email' => 'El email debe ser uno valido'
+        ], [
+            'email.required' => 'Se necesita un email',
+            'password.required' => 'Se necesita una contraseña',
+            'email.email' => 'El email debe ser válido'
         ]);
 
         if (Auth::attempt($credenciales)) {
-            
             $request->session()->regenerate();
+            RateLimiter::clear($clave);
 
             RegistroSeguridad::create([
                 'tipo_evento' => 'login_exitoso',
@@ -95,6 +103,8 @@ class AuthController extends Controller
             return redirect()->route('pagina');
         }
 
+        RateLimiter::hit($clave, 60);
+
         RegistroSeguridad::create([
             'tipo_evento' => 'login_fallido',
             'usuario_id' => null,
@@ -107,8 +117,6 @@ class AuthController extends Controller
         return back()->with('error', 'Las credenciales no coinciden con nuestros registros.');
     }
 
- 
-    
     public function logout(Request $request)
     {
         RegistroSeguridad::create([
