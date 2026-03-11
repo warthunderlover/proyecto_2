@@ -41,6 +41,10 @@ Route::middleware('auth')->group(function () {
         return view('admin.inicio');
     })->name('admin.inicio');
 
+    Route::get('/cliente', function () {
+        return view('compras.Bienvenida');
+    })->name('compras.Bienvenida');
+
     // CRUD inventario
     Route::resource('inventario', ProductoController::class)->except(['show']);
 

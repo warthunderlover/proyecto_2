@@ -7,7 +7,6 @@
 <body class="bg-light">
 
 <div class="d-flex">
-
     <!-- Menú lateral -->
     <div class="bg-dark text-white vh-100 p-3" style="width:220px;">
         <h4 class="mb-4">MENÚ</h4>
@@ -23,9 +22,13 @@
             </li>
 
             <li class="nav-item mb-2">
+                <a href="/cliente" class="nav-link text-white {{ request()->is('cliente') ? 'active bg-secondary' : '' }}">Inicio</a>
+            </li>
+            
+            <li class="nav-item mb-2">
                 
                 <a href="/productos" class="nav-link text-white {{ request()->is('productos') ? 'active bg-secondary' : '' }}">
-                    Ver Productos
+                    Tienda
                 </a>
             </li>
             <li class="nav-item mb-2">
@@ -34,6 +37,7 @@
                     Ver Carrito
                 </a>
             </li>
+
             <li class="nav-item mt-3">
                 <!-- Logout funcional -->
                 <a href="{{ route('logout') }}" class="nav-link text-danger"
