@@ -1,5 +1,5 @@
 
-@extends('layouts.usuarios')
+@extends('layout.usuarios')
 
 @section('usuarios_content')
 
@@ -7,8 +7,8 @@
 
 
         <h1 class="mb-4">Lista de Usuarios</h1>
-        <a href="/pagina" class="btn btn-secondary mb-3">
-            ← Regresar a la página principal
+        <a href="{{ route('admin.inicio') }}" class="btn btn-secondary mb-3">
+            ← Regresar al panel de administración
         </a>
 
         <a href="{{ route('users.create') }}" class="btn btn-success mb-3">
@@ -81,6 +81,7 @@
 
         <p><strong>ID:</strong> {{ $usuario->id }}</p>
         <p><strong>Nombre:</strong> {{ $usuario->nombres }}</p>
+         <p><strong>Apellido:</strong> {{ $usuario->apellidos }}</p>
         <p><strong>Email:</strong> {{ $usuario->email }}</p>
         <p><strong>Estado:</strong> 
             @if($usuario->status == 1)
@@ -106,6 +107,10 @@
                 <div class="col-md-4">
                     <label>Nombre</label>
                     <input type="text" name="nombres" class="form-control" value="{{ $usuario->nombres }}">
+                </div>
+                <div class="col-md-4">
+                    <label>Apellido</label>
+                    <input type="text" name="apellidos" class="form-control" value="{{ $usuario->apellidos }}">
                 </div>
 
                 <div class="col-md-4">
@@ -139,6 +144,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Email</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -180,9 +186,8 @@
                     @if($user->status == 1)
 
                     <form action="{{ route('users.inactivate', $user->id) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        <button type="submit" class="btn btn-warning btn-sm"
-                            onclick="return confirm('¿Inactivar este usuario?')">
+                     @csrf
+                        <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('¿Inactivar este usuario?')">
                             Inactivar
                         </button>
                     </form>

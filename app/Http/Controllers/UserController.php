@@ -20,7 +20,7 @@ class UserController extends Controller
         $user->status = 0;
         $user->save();
 
-        return redirect()->route('users.usuarios')->with('success', 'Usuario inactivado correctamente.');
+        return redirect()->route('users.index')->with('success', 'Usuario inactivado correctamente.');
     }
 
     public function create()
