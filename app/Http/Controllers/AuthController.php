@@ -78,9 +78,10 @@ class AuthController extends Controller
             'password.required' => 'Introduzca su contraseña',
             'email.email' => 'El email debe ser uno valido'
         ]);
-
+        
+            //reemplazando 
         if (Auth::attempt($credenciales)) {
-            
+    
             $request->session()->regenerate();
 
             RegistroSeguridad::create([
@@ -91,6 +92,20 @@ class AuthController extends Controller
                 'detalles' => 'Login exitoso desde ' . $request->userAgent(),
                 'nivel_riesgo' => 'bajo',
             ]);
+
+            $rol = Auth::user()->rol;
+
+            if ($rol == 'admin') {
+                return redirect()->route('admin_test'); //cambiar admin_test por la vista permitidas para admin
+            }
+            /*
+            if ($rol == 'inventario') {
+                return redirect()->route('productos');// pagina inventario
+            }*/
+
+            if ($rol == 'cliente') {
+                return redirect()->route('pagina');//pagina a las que tiene permiso el cliente
+            }
 
             return redirect()->route('pagina');
         }
