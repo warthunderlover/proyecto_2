@@ -22,6 +22,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Mi Perfil</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('users.index') }}">Administrar Usuarios</a>
+                        </li>
                     </ul>
                     
                     
@@ -50,6 +53,10 @@
                 <strong>Email:</strong> {{ Auth::user()->email }} 
             </p>
         </div>
+    </div>
+
+    <div class="container">
+        @yield('content')
     </div>
 
     <div class="container mt-4">
