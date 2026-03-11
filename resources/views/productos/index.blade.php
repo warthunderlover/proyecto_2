@@ -20,7 +20,7 @@
 @endif</h2>
     <div class="d-flex justify-content-end align-items-center gap-3">
         <a class="btn btn-secondary" href="{{ route('carrito.index') }}">
-            🛒 Ver Carrito (pasa esto a el menú Nelson)
+            🛒 Ver Carrito
             <span class="badge bg-light text-dark">
                 {{ session('carrito') ? count(session('carrito')) : 0 }}
             </span>
@@ -30,11 +30,6 @@
     <div class="container mt-4">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
 
-<!--
-
-Aquí cambia a como tenes los datos en la base de datos tuya y quita los campos que no tengas.
-
--->
             @forelse($productos as $producto)
             <div class="col">
                 <div class="card h-100 shadow-sm">
@@ -42,7 +37,6 @@ Aquí cambia a como tenes los datos en la base de datos tuya y quita los campos 
                     <div class="card-body">
                         <h5 class="card-title">{{ $producto->nombre_producto }}</h5>
                         <p class="card-text" style="font-size: 0.9rem;">
-                            <strong>Marca ID:</strong> {{ $producto->id_marca }} <br>
                             <strong>Precio compra:</strong> {{ $producto->precio_compra }} LPS <br>
                             <strong>Stock:</strong> {{ $producto->cantidad_stock }} unidades <br>
                             <strong>Estado:</strong> 

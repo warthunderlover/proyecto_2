@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\RegistroSeguridad;
 use Illuminate\Http\Request;
+use App\Models\Productos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
@@ -100,7 +101,7 @@ class AuthController extends Controller
                 'nivel_riesgo' => 'bajo',
             ]);
 
-            return redirect()->route('pagina');
+            return redirect()->route('productos.index');
         }
 
         RateLimiter::hit($clave, 60);

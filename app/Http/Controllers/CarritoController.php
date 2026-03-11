@@ -83,7 +83,18 @@ class CarritoController extends Controller
 
         if(empty($carrito)){
             return redirect()->route('carrito.index')->with('error','El carrito está vacío');
-        }   
+        }  
+
+        foreach($carrito as $item){
+            $producto = Productos::find($item['id_producto']);
+
+            if($producto->cantidad_stock < $item['cantidad']){
+                return redirect()->route('carrito.index')
+                                ->with('error', "Stock insuficiente para '{$producto->nombre_producto}'. 
+                                                Disponible: {$producto->cantidad_stock} unidades, 
+                                                solicitado: {$item['cantidad']}.");
+        }
+    }
 
         $total = array_sum(array_map(fn($item)=>$item['subtotal'],$carrito));
 

@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('layout.app')
 
 @section('title', 'Inventario')
 
-@section('content')
+@section('contenido')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Reactivacion de productos</h2>
 </div>

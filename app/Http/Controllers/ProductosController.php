@@ -16,7 +16,7 @@ class ProductosController extends Controller
     public function index()
     {
         //listado de productos.
-        $productos = Productos::where('estado_producto',1)->get();
+        $productos = Productos::where('estado_producto',1)->where('cantidad_stock','>',0)->get();
         return view('productos.index', compact('productos'));
     }
 
@@ -28,8 +28,8 @@ class ProductosController extends Controller
         //equivalente al mode= 'INS' es GET, muestra el formulario para crear un nuevo producto
 
         //agarrando las marcas para el select del formulario
-        $marcas = \App\Models\Marcas::select('id_marca','nombre_marca')->where('estado_marca',1)->get();
-        return view('productos.create', compact('marcas'));
+       // $marcas = \App\Models\Marcas::select('id_marca','nombre_marca')->where('estado_marca',1)->get();
+        return view('productos.create'/*, compact('marcas')*/);
     }
 
     /**
@@ -41,13 +41,13 @@ class ProductosController extends Controller
         $request->validate
         ([
             'nombre_producto'=>'required|string|max:100',
-            'id_marca'=>'required|integer',
+            //'id_marca'=>'required|integer',
             'precio_compra'=>'required|numeric|min:0.01',
             'cantidad_stock'=>'required|integer|min:1',
             //'estado_producto'=>'required|boolean'
         ],[
             'nombre_producto.required' => 'El campo nombre del producto es obligatorio.',
-            'id_marca.required' => 'El campo marca es obligatorio.',
+           // 'id_marca.required' => 'El campo marca es obligatorio.',
             'precio_compra.required' => 'El campo precio de compra es obligatorio.',
             'cantidad_stock.required' => 'El campo cantidad en stock es obligatorio.',
             
@@ -55,7 +55,7 @@ class ProductosController extends Controller
         //equivalencia con productosDao::CrearProducto($producto);
         Productos::create([
             'nombre_producto'=>$request->nombre_producto,
-            'id_marca'=>$request->id_marca,
+            //'id_marca'=>$request->id_marca,
             'precio_compra'=>$request->precio_compra,
             'cantidad_stock'=>$request->cantidad_stock,
             //'estado_producto'=>$request->estado_producto ?? true,
@@ -95,7 +95,7 @@ class ProductosController extends Controller
         //este es el POST del UPD
         $request->validate([
             'nombre_producto'=>'required|string|max:100',
-            'id_marca'=>'required|integer',
+            //'id_marca'=>'required|integer',
             'precio_compra'=>'required|numeric|min:0.01',
             'cantidad_stock'=>'required|integer|min:1',
             'estado_producto'=>'required|boolean'
@@ -105,7 +105,7 @@ class ProductosController extends Controller
 
         $producto->update([
             'nombre_producto'=>$request->nombre_producto,
-            'id_marca'=>$request->id_marca,
+            //'id_marca'=>$request->id_marca,
             'precio_compra'=>$request->precio_compra,
             'cantidad_stock'=>$request->cantidad_stock,
             'estado_producto'=>$request->estado_producto ?? true,

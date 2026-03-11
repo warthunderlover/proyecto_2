@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table  ->foreign('id_producto')
                     ->references('id_producto')
-                    ->on('productos')
+                    ->on('producto')
                     ->onDelete('cascade');
             
             $table  ->foreign('id_compra')

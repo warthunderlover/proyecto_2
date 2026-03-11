@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /*
         Schema::create('proveedores', function (Blueprint $table) {
             $table->id('id_proveedor');
             $table->string('nombre_proveedor', 100);
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->boolean('estado_proveedor')->default(true);
             $table->timestamps();
         });
-
+/*
         Schema::create('marcas', function (Blueprint $table){
             $table->id('id_marca');
             $table->string('nombre_marca',50);
@@ -33,7 +34,7 @@ return new class extends Migration
                   ->references('id_proveedor')
                   ->on('proveedores')
                   ->onDelete('cascade');
-        });
+        });*/
     }
 
     /**

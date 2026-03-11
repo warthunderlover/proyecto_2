@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('layout.app')
 
-@section('title', 'Inicio Administrador')
+@section('title', 'Inventario')
 
-@section('content')
+@section('contenido')
 
 <div class="text-center mt-5">
 

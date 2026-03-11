@@ -15,5 +15,6 @@ class DetalleCompra extends Model
         'id_producto',
         'cantidad',
         'precio_unitario',
+        'subtotal',
     ];
 }
