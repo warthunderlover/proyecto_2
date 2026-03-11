@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('rol')->default('cliente');// agregacion de campo, si no especifica rol sera cliente
             $table->rememberToken();
             $table->timestamps();
         });
