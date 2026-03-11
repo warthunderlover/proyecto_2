@@ -8,8 +8,8 @@
 
         <h1 class="mb-4">Lista de Usuarios</h1>
         <a href="{{ route('admin.inicio') }}" class="btn btn-secondary mb-3">
-            ← Regresar al panel de administración
-        </a>
+            ← Regresar al Menu
+        </a>   
 
         <a href="{{ route('users.create') }}" class="btn btn-success mb-3">
         Agregar Usuario</a>

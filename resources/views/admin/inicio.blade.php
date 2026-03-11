@@ -17,9 +17,9 @@
         <li class="list-group-item">Administrar Usuarios: crear, editar o desactivar cuentas de usuario.</li>
 
     </ul>
-    <div class="text-center mt-4">
+    <!--<div class="text-center mt-4">
         <a href="{{ route('users.index') }}" class="btn btn-primary btn-lg">Administrar Usuarios</a>
-    </div>
+    </div> -->
 
 </div>
 
