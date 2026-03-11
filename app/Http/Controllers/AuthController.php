@@ -37,7 +37,7 @@ class AuthController extends Controller
                 'regex:/[@$!%*#?&]/',
             ],
         ], [
-            'password.regex' => 'La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales.',
+            'password.regex' => 'La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales (@$!%*#?&).',
             'email.unique' => 'Este email ya está registrado.',
             'nombres.required' => 'El campo nombres es obligatorio.',
             'apellidos.required' => 'El campo apellidos es obligatorio.',
