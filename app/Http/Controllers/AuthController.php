@@ -87,8 +87,10 @@ class AuthController extends Controller
             'password.required' => 'Se necesita una contraseña',
             'email.email' => 'El email debe ser válido'
         ]);
-
+        
+            //reemplazando 
         if (Auth::attempt($credenciales)) {
+    
             $request->session()->regenerate();
             RateLimiter::clear($clave);
 
@@ -101,7 +103,21 @@ class AuthController extends Controller
                 'nivel_riesgo' => 'bajo',
             ]);
 
-            return redirect()->route('productos.index');
+            $rol = Auth::user()->rol;
+
+            if ($rol == 'admin') {
+                return redirect()->route('admin_test'); //cambiar admin_test por la vista permitidas para admin
+            }
+            /*
+            if ($rol == 'inventario') {
+                return redirect()->route('productos');// pagina inventario
+            }*/
+
+            if ($rol == 'cliente') {
+                return redirect()->route('pagina');//pagina a las que tiene permiso el cliente
+            }
+
+            return redirect()->route('pagina');
         }
 
         RateLimiter::hit($clave, 60);
