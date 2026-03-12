@@ -106,7 +106,7 @@ class AuthController extends Controller
             $rol = Auth::user()->rol;
 
             if ($rol == 'admin') {
-                return redirect()->route('admin_test'); //cambiar admin_test por la vista permitidas para admin
+                return redirect()->route('admin.inicio'); //cambiar admin_test por la vista permitidas para admin
             }
             /*
             if ($rol == 'inventario') {
@@ -114,10 +114,10 @@ class AuthController extends Controller
             }*/
 
             if ($rol == 'cliente') {
-                return redirect()->route('pagina');//pagina a las que tiene permiso el cliente
+                return redirect()->route('compras.Bienvenida');//pagina a las que tiene permiso el cliente
             }
 
-            return redirect()->route('pagina');
+            return redirect()->route('compras.Bienvenida');
         }
 
         RateLimiter::hit($clave, 60);

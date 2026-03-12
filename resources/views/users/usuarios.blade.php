@@ -1,7 +1,9 @@
 
-@extends('layout.usuarios')
+@extends('layout.app')
 
-@section('usuarios_content')
+@section('titulo', 'Productos')
+
+@section('contenido')
 
     <div class="container">
 
@@ -144,7 +146,6 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
                 <th>Email</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -183,7 +184,7 @@
                         Editar
                     </a>
 
-                    @if($user->status == 1)
+                <!--@if($user->status == 1)-->    
 
                     <form action="{{ route('users.inactivate', $user->id) }}" method="POST" style="display:inline-block;">
                      @csrf
@@ -192,7 +193,7 @@
                         </button>
                     </form>
 
-                    @endif
+                    <!--@endif--> 
 
 
                 </td>
