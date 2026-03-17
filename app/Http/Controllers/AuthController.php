@@ -56,6 +56,7 @@ class AuthController extends Controller
             'apellidos' => $validado['apellidos'],
             'email' => $validado['email'],
             'password' => Hash::make($validado['password']),
+            'rol'=>'cliente',
         ]);
 
         RegistroSeguridad::create([
@@ -68,7 +69,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($usuario);
-        return redirect()->route('pagina');
+        return redirect()->route('compras.Bienvenida')->with('success', 'Registro exitoso. Bienvenido a la tienda.');
     }
 
     public function login(Request $request)
