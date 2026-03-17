@@ -43,7 +43,7 @@ class CarritoController extends Controller
         }
         session(['carrito' => $carrito]);
 
-        return redirect()->route('productos.index')->with('mensaje',"'{$producto->nombre_producto}'agregado al carrito");
+        return redirect()->route('producto')->with('mensaje',"'{$producto->nombre_producto}'agregado al carrito");
     }
 
     public function actualizar(Request $request, $id){
