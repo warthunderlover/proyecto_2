@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    protected $table = 'table_reviews';
     protected $fillable = ['id_producto','calificacion','comentario'];
 
     public function producto()

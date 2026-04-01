@@ -5,7 +5,7 @@
 @section('contenido')
 <div class="container py-4">
 
-    <a href="/" class="btn btn-outline-secondary mb-4">
+    <a href="/productos" class="btn btn-outline-secondary mb-4">
         <i class="fa-solid fa-arrow-left"></i> Volver
     </a>
 
@@ -45,20 +45,6 @@
                 </div>
 
                 <hr>
-
-                {{-- Acciones --}}
-                <div class="d-flex gap-3 justify-content-center">
-                    <a href="/productos/{{ $producto_detalle->id_producto }}/edit" class="btn btn-warning">
-                        <i class="fa-solid fa-pencil"></i> Editar
-                    </a>
-                    <form method="POST" action="/productos/{{ $producto_detalle->id_producto }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">
-                            <i class="fa-solid fa-trash"></i> Eliminar
-                        </button>
-                    </form>
-                </div>
             </div>
         </div>
 
@@ -101,7 +87,6 @@
                 @forelse($producto_detalle->reviews as $review)
                 <div class="mb-3 border-bottom pb-3">
                     <div class="d-flex justify-content-between">
-                        <strong>{{ $review->user->name }}</strong>
                         <span class="badge bg-warning text-dark">
                             {{ $review->calificacion }} / 5
                         </span>
