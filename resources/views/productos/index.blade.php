@@ -4,11 +4,6 @@
 
 @section('contenido')
 
-<!-- 
-    No quitar esto ya que es el apartado que el cliente va a ver y de aquí mismo es que el va a elegir los productos para agregar al carrito
-    
--->
-
 <section class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="m-0">Listado de Productos</h2>
@@ -31,15 +26,21 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
 
             @forelse($productos as $producto)
+            
             <div class="col">
                 <div class="card h-100 shadow-sm">
-
                     <div class="card-body">
-                        <h5 class="card-title">{{ $producto->nombre_producto }}</h5>
+                        <img
+                            src="{{ $producto->imagen ? asset('storage/'.$producto->imagen) : asset('images/no-image.png') }}"
+                            alt="imagen producto"
+                            class="img-fluid"
+                        />
+                        <h5 class="card-title"><a href="{{ route('productos.show', $producto->id_producto) }}" class="text-decoration-none">{{ $producto->nombre_producto }}</a></h5>
                         <p class="card-text" style="font-size: 0.9rem;">
                             <strong>Precio compra:</strong> {{ $producto->precio_compra }} LPS <br>
                             <strong>Stock:</strong> {{ $producto->cantidad_stock }} unidades <br>
                             <strong>Estado:</strong> 
+                            
                             @if($producto->estado_producto)
                                 <span class="badge bg-success">Activo</span>
                             @else
@@ -62,7 +63,11 @@
                 </div>
             @endforelse
 
+
         </div>
     </div>
 </section>
+<div class="mt-4 p-3">
+    {{$productos->links()}}
+</div>
 @endsection

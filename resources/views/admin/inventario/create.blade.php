@@ -1,52 +1,78 @@
-<!DOCTYPE html>
-<html>
-<head>
+@extends('layout.app')
 
-<title>Agregar Producto</title>
+@section('titulo', 'Agregar Producto')
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('contenido')
 
-</head>
+<x-card class="max-w-lg mx-auto mt-24">
 
-<body class="bg-light">
+    <header class="text-center">
+            <h2 class="text-2xl font-bold uppercase mb-1">
+                Agregar Producto
+            </h2>
+            <p class="mb-4">Agregar un producto nuevo al inventario</p>
+        </header>
 
-<div class="container mt-5">
+        <div class="card-body">
 
-<div class="card shadow">
+    <form action="/inventario" method="POST" enctype="multipart/form-data">
 
-<div class="card-header bg-success text-white">
-<h4>Agregar Producto</h4>
-</div>
+    @csrf
 
-<div class="card-body">
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        
+        <input  type="text" 
+                name="nombre" 
+                class="form-control"
+                value="{{old('nombre')}}">
+        @error('nombre')
+        <p class="text-danger">{{$message}}</p>
+        @enderror
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Imagen</label>
+        <input  type="file" 
+                name="imagen" 
+                class="form-control"
+                value="{{old('imagen')}}">
+        @error('imagen')
+        <p class="text-danger">{{$message}}</p>
+        @enderror
+    </div>
 
-<form action="/inventario" method="POST">
+    <div class="mb-3">
+        <label class="form-label">Descripción (opcional)</label>
+        <input  type="text" 
+                name="descripcion" 
+                class="form-control"
+                value="{{old('descripcion')}}">
 
-@csrf
+        @error('descripcion')
+        <p class="text-danger">{{$message}}</p>
+        @enderror
+    </div>
 
-<div class="mb-3">
-<label class="form-label">Nombre</label>
-<input type="text" name="nombre" class="form-control" required>
-</div>
+    <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input  type="number" 
+                step="0.01" 
+                name="precio" 
+                class="form-control"
+                value="{{old('precio')}}">
+        @error('precio')
+        <p class="text-danger">{{$message}}</p>
+        @enderror
+    </div>
 
-<div class="mb-3">
-<label class="form-label">Descripción</label>
-<input type="text" name="descripcion" class="form-control">
-</div>
+    <button class="btn btn-success">
+        Guardar Producto
+    </button>
 
-
-<div class="mb-3">
-<label class="form-label">Precio</label>
-<input type="number" step="0.01" name="precio" class="form-control" required>
-</div>
-
-<button class="btn btn-success">
-Guardar Producto
-</button>
-
-<a href="/inventario" class="btn btn-secondary">
-Volver
-</a>
+    <a href="/inventario" class="btn btn-secondary">
+        Volver
+    </a>
 
 </form>
 
@@ -55,6 +81,5 @@ Volver
 </div>
 
 </div>
-
-</body>
-</html>
+</x-card>
+@endsection()

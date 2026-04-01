@@ -16,6 +16,17 @@ class Productos extends Model
         //'id_marca',
         'precio_compra',
         'cantidad_stock',
-        'estado_producto'
+        'estado_producto',
+        'imagen',
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'id_producto');
+    }
+
+    public function promedioCalificacion()
+    {
+        return $this->table_reviews()->avg('calificacion');
+    }
 }

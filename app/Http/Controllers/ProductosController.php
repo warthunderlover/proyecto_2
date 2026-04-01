@@ -16,7 +16,7 @@ class ProductosController extends Controller
     public function index()
     {
         //listado de productos.
-        $productos = Productos::where('estado_producto',1)->where('cantidad_stock','>',0)->get();
+        $productos = Productos::Latest()->where('estado_producto',1)->where('cantidad_stock','>',0)->paginate(10);
         return view('productos.index', compact('productos'));
     }
 
@@ -72,9 +72,9 @@ class ProductosController extends Controller
     public function show($id)
     {
         //equivalente al mode= 'DSP'
-        $producto = Productos::findorFail($id);
+        $producto_detalle = Productos::findorFail($id);
 
-        return view('productos.show',compact('producto'));
+        return view('productos.show',compact('producto_detalle'));
     }
 
     /**

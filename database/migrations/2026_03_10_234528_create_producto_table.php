@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('producto', function (Blueprint $table) {
             $table->id('id_producto');
             $table->string('nombre_producto',100);
-            //$table->unsignedBigInteger('id_marca');
+            $table->string('imagen')->nullable();
             $table->boolean('estado_producto')->default(true);
             $table->decimal('precio_compra', 10, 2);
             $table->integer('cantidad_stock');            
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('producto');
+//        Schema::dropIfExists('producto');
     }
 };
