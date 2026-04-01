@@ -63,11 +63,11 @@
                 </div>
             @endforelse
 
-
         </div>
+        
+                    <div class="mt-2 d-flex justify-content-center">
+                    {{$productos->links()}}
+                    </div>
     </div>
 </section>
-<div class="mt-4 p-3">
-    {{$productos->links()}}
-</div>
 @endsection

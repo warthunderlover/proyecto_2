@@ -16,7 +16,7 @@ class ProductosController extends Controller
     public function index()
     {
         //listado de productos.
-        $productos = Productos::Latest()->where('estado_producto',1)->where('cantidad_stock','>',0)->paginate(10);
+        $productos = Productos::Latest()->where('estado_producto',1)->where('cantidad_stock','>',0)->paginate(2);
         return view('productos.index', compact('productos'));
     }
 
