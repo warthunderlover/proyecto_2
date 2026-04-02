@@ -13,9 +13,19 @@ class Productos extends Model
     protected $fillable = 
     [
         'nombre_producto',
-        //'id_marca',
         'precio_compra',
         'cantidad_stock',
-        'estado_producto'
+        'estado_producto',
+        'imagen',
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'id_producto')->Latest();
+    }
+
+    public function promedioCalificacion()
+    {
+        return $this->reviews()->avg('calificacion');
+    }
 }

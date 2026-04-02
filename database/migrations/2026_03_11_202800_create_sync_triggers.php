@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,8 +16,8 @@ return new class extends Migration
             BEGIN
                 IF @syncing IS NULL THEN
                     SET @syncing = 1;
-                    INSERT INTO producto (id_producto, nombre_producto, estado_producto, precio_compra, cantidad_stock, created_at, updated_at)
-                    VALUES (NEW.id, NEW.nombre, IF(NEW.estado = "activo", 1, 0), NEW.precio, NEW.stock, NEW.created_at, NEW.updated_at);
+                    INSERT INTO producto (id_producto, nombre_producto, estado_producto, precio_compra, cantidad_stock, created_at, updated_at, imagen)
+                    VALUES (NEW.id, NEW.nombre, IF(NEW.estado = "activo", 1, 0), NEW.precio, NEW.stock, NEW.created_at, NEW.updated_at, NEW.imagen);
                     SET @syncing = NULL;
                 END IF;
             END
@@ -34,7 +35,8 @@ return new class extends Migration
                         estado_producto = IF(NEW.estado = "activo", 1, 0),
                         precio_compra   = NEW.precio,
                         cantidad_stock  = NEW.stock,
-                        updated_at      = NEW.updated_at
+                        updated_at      = NEW.updated_at,
+                        imagen          = NEW.imagen
                     WHERE id_producto = NEW.id;
                     SET @syncing = NULL;
                 END IF;

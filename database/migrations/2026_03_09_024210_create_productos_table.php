@@ -11,11 +11,13 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('imagen')->nullable();
             $table->text('descripcion')->nullable();
             $table->integer('stock')->default(0); // stock inicia en 0
             $table->decimal('precio', 10, 2);
             $table->enum('estado', ['activo', 'inactivo'])->default('activo'); // estado predeterminado
             $table->timestamps();
+            
         });
     }
 

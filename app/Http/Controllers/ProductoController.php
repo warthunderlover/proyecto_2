@@ -27,12 +27,26 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
-            'precio' => 'required|numeric',
-        ]);
+        'nombre' => 'required',
+        'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'precio' => 'required|numeric',
+    ]);
 
-        Producto::create(array_merge($request->all(), ['stock' => 0, 'estado' => 'activo']));
-        return redirect('/inventario')->with('success','Producto creado correctamente');
+    $imagenPath = null;
+
+    if ($request->hasFile('imagen')) {
+        $imagenPath = $request->file('imagen')->store('imagenes', 'public');
+    }
+
+    Producto::create([
+        'nombre'  => $request->nombre,
+        'precio'  => $request->precio,
+        'imagen'  => $imagenPath,
+        'stock'   => 0,
+        'estado'  => 'activo',
+    ]);
+
+    return redirect('/inventario')->with('success', 'Producto creado correctamente');
     }
 
     public function edit($id)

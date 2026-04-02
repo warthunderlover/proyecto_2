@@ -10,7 +10,7 @@
 </div>
 
 @if(session('success'))
-<div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
 <div class="card shadow">
@@ -31,9 +31,9 @@
                 <tr>
                     <td>{{ $producto->id }}</td>
                     <td>{{ $producto->nombre }}</td>
-                    <td>{{ $producto->descripcion }}</td>
+                    <td>{{ $producto->descripcion ?? 'Sin descripción' }}</td>
                     <td>{{ $producto->stock }}</td>
-                    <td>L {{ $producto->precio }}</td>
+                    <td>L {{ number_format($producto->precio, 2) }}</td>
                     <td>
                         <a href="/inventario/{{ $producto->id }}/edit" class="btn btn-warning btn-sm mb-1">Editar</a>
                         <a href="/inventario/{{ $producto->id }}/stock" class="btn btn-primary btn-sm mb-1">Agregar Stock</a>

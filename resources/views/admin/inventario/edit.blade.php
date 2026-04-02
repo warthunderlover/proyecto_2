@@ -1,73 +1,70 @@
-<!DOCTYPE html>
-<html>
-<head>
+@extends('layout.app')
 
-<title>Editar Producto</title>
+@section('title', 'Editar Producto')
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('contenido')
 
-</head>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
 
-<body class="bg-light">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-center">
+                    <h4 class="mb-0">Editar Producto</h4>
+                </div>
 
-<div class="container mt-5">
+                <div class="card-body">
 
-<div class="card shadow">
+                    <form action="/inventario/{{ $producto->id }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-<div class="card-header bg-warning">
-<h4>Editar Producto</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Producto</label>
+                            <input type="text" 
+                                   name="nombre" 
+                                   class="form-control"
+                                   value="{{ old('nombre', $producto->nombre) }}"
+                                   required>
+                            @error('nombre')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea name="descripcion" 
+                                      class="form-control" 
+                                      rows="3">{{ old('descripcion', $producto->descripcion) }}</textarea>
+                            @error('descripcion')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Precio (L)</label>
+                            <input type="number" 
+                                   step="0.01"
+                                   name="precio" 
+                                   class="form-control"
+                                   value="{{ old('precio', $producto->precio) }}"
+                                   required>
+                            @error('precio')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="/inventario" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-warning">Actualizar Producto</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<div class="card-body">
-
-<form action="/inventario/{{ $producto->id }}" method="POST">
-
-@csrf
-@method('PUT')
-
-<div class="mb-3">
-<label class="form-label">Nombre</label>
-<input type="text"
-name="nombre"
-class="form-control"
-value="{{ $producto->nombre }}"
-required>
-</div>
-
-<div class="mb-3">
-<label class="form-label">Descripción</label>
-<input type="text"
-name="descripcion"
-class="form-control"
-value="{{ $producto->descripcion }}">
-</div>
-
-
-<div class="mb-3">
-<label class="form-label">Precio</label>
-<input type="number"
-step="0.01"
-name="precio"
-class="form-control"
-value="{{ $producto->precio }}"
-required>
-</div>
-
-<button class="btn btn-warning">
-Actualizar Producto
-</button>
-
-<a href="/inventario" class="btn btn-secondary">
-Volver
-</a>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-</body>
-</html>
+@endsection
