@@ -104,17 +104,12 @@ class AuthController extends Controller
             ]);
 
             $rol = Auth::user()->rol;
-
             if ($rol == 'admin') {
-                return redirect()->route('admin.inicio'); //cambiar admin_test por la vista permitidas para admin
+                return redirect()->route('admin.inicio'); 
             }
-            /*
-            if ($rol == 'inventario') {
-                return redirect()->route('productos');// pagina inventario
-            }*/
 
             if ($rol == 'cliente') {
-                return redirect()->route('compras.Bienvenida');//pagina a las que tiene permiso el cliente
+                return redirect()->route('compras.Bienvenida');
             }
 
             return redirect()->route('compras.Bienvenida');
