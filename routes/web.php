@@ -6,7 +6,6 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProductosController;
-use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 // Redirigir al login al entrar a /
@@ -44,7 +43,6 @@ Route::middleware('auth')->group(function () {
 
     //  Producto visible para todos
     Route::get('/producto', [ProductosController::class, 'index'])->name('producto');
-    Route::post('/productos/{id}/reviews', [ReviewController::class, 'store'])->middleware('auth');
 });
 
 Route::middleware(['auth','role:admin'])->group(function(){
