@@ -10,7 +10,7 @@
         .text-danger { color: red; }
     </style>
 </head>
-<body class="bg-light">
+<body class="bg-light">  
 
 <div class="container">
     <div class="row justify-content-center mt-5">
