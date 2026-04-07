@@ -8,7 +8,7 @@
 
 <div class="d-flex">
     <!-- Menú lateral -->
-    <div class="bg-dark text-white vh-100 p-3" style="width:220px;">
+    <div class="bg-dark text-white p-3 d-flex flex-column" style="width:220px; min-height: 100vh;">
         <h4 class="mb-4">MENÚ</h4>
         <ul class="nav flex-column">
 
@@ -91,7 +91,7 @@
     </div>
 
     <!-- Contenido principal -->
-    <div class="flex-grow-1 p-4">
+    <div class="flex-grow-1 p-4" style="overflow-y: auto; min-height: 100vh;">
         @yield('contenido')
     </div>
 

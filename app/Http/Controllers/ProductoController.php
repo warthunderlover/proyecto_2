@@ -27,7 +27,8 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'nombre' => 'required',
+        'nombre' => 'required|unique:productos,nombre',
+        'descripcion' => 'nullable|string|max:255',
         'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'precio' => 'required|numeric',
     ]);
@@ -41,6 +42,7 @@ class ProductoController extends Controller
     Producto::create([
         'nombre'  => $request->nombre,
         'precio'  => $request->precio,
+        'descripcion' => $request->descripcion,
         'imagen'  => $imagenPath,
         'stock'   => 0,
         'estado'  => 'activo',

@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CompraController;
 use App\Http\Controllers\CarritoController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompraController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Redirigir al login al entrar a /
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
     Route::delete('/carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
     Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
+    Route::get('/reportes/productos', [ReporteController::class, 'reporteProductos'])->name('Reportes.reporte');
 
     //  Producto visible para todos
     Route::get('/producto', [ProductosController::class, 'index'])->name('producto');

@@ -21,6 +21,11 @@
             </span>
         </a>
     </div>
+    <div class="d-flex justify-content-end align-items-center gap-3">
+        <a class="btn btn-secondary" href="{{ route('Reportes.reporte') }}">
+            Ver reportes
+        </a>
+    </div>
 
     <div class="container mt-4">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
@@ -29,10 +34,10 @@
             
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <img
                             src="{{ $producto->imagen ? asset('storage/'.$producto->imagen) : asset('images/no-image.png') }}"
-                            alt="imagen producto"
+                            alt="imagen producto" height="100" width="100"
                             class="img-fluid"
                         />
                         <h5 class="card-title"><a href="{{ route('productos.show', $producto->id_producto) }}" class="text-decoration-none">{{ $producto->nombre_producto }}</a></h5>
@@ -65,9 +70,9 @@
 
         </div>
         
-                    <div class="mt-2 d-flex justify-content-center">
-                    {{$productos->links()}}
-                    </div>
     </div>
 </section>
+<div class="mt-2 d-flex justify-content-center">
+{{$productos->links()}}
+</div>
 @endsection
