@@ -19,13 +19,15 @@
             <span class="badge bg-light text-dark">
                 {{ session('carrito') ? count(session('carrito')) : 0 }}
             </span>
+        </a> 
+        @auth @if(auth()->user()->rol === 'admin')
+         <a class="btn btn-secondary" href="{{ route('Reportes.reporte') }}">
+            Reporte de Productos
         </a>
+        @endif
+        @endauth
     </div>
-    <div class="d-flex justify-content-end align-items-center gap-3">
-        <a class="btn btn-secondary" href="{{ route('Reportes.reporte') }}">
-            Ver reportes
-        </a>
-    </div>
+   
 
     <div class="container mt-4">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">

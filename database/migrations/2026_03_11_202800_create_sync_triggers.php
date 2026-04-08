@@ -77,12 +77,19 @@ return new class extends Migration
         ');
 
         DB::unprepared('
+            DROP TRIGGER IF EXISTS actualizar_stock_after_insert_producto;
+
             CREATE TRIGGER actualizar_stock_after_insert_producto
             AFTER INSERT ON detalle_compras
             FOR EACH ROW
             BEGIN
                 UPDATE producto
-                SET cantidad_stock = cantidad_stock - NEW.cantidad
+                SET cantidad_stock = 
+                    CASE 
+                        WHEN cantidad_stock >= NEW.cantidad 
+                        THEN cantidad_stock - NEW.cantidad
+                        ELSE 0
+                    END
                 WHERE id_producto = NEW.id_producto;
             END
         ');

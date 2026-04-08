@@ -41,12 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
     Route::delete('/carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
     Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
-    Route::get('/reportes/productos', [ReporteController::class, 'reporteProductos'])->name('Reportes.reporte');
 
     //  Producto visible para todos
     Route::get('/producto', [ProductosController::class, 'index'])->name('producto');
 });
-
 Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin', function () { return view('admin.inicio'); })->name('admin.inicio');
     Route::get('/usuarios', function(){ return view('admin.usuarios'); })->name('usuarios');
@@ -56,9 +54,10 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/inventario/inactivos', [ProductoController::class, 'inactivos']);
     Route::put('/inventario/{id}/activar', [ProductoController::class, 'activar']);
     Route::put('/inventario/{id}/desactivar', [ProductoController::class, 'desactivar']);
+    Route::get('/reportes/productos', [ReporteController::class, 'reporteProductos'])->name('Reportes.reporte');
     Route::resource('productos', ProductosController::class);
-});
 
+});
 Route::middleware(['auth','role:cliente'])->group(function(){
     Route::get('/cliente', function () { return view('compras.Bienvenida'); })->name('compras.Bienvenida');
     Route::resource('compras', CompraController::class);

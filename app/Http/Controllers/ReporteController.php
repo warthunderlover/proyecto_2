@@ -34,6 +34,6 @@ class ReporteController extends Controller
 
         return $pdf->download('reporte_productos.pdf');
         // O para verlo en el navegador:
-        // return $pdf->stream('reporte_productos.pdf');
+         return $pdf->stream('reporte_productos.pdf');
     }
 }
