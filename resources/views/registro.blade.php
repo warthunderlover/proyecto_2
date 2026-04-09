@@ -34,13 +34,13 @@
                         
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label class="form-label">Nombres</label>
+                                <label class="form-label">Primer nombre</label>
                                 <input type="text" class="form-control" name="nombres" 
                                        value="{{ old('nombres') }}" required pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]+">
                                 <small id="helpNombres">Solo letras, sin espacios ni guiones.</small>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Apellidos</label>
+                                <label class="form-label">Primer Apellido</label>
                                 <input type="text" class="form-control" name="apellidos" 
                                        value="{{ old('apellidos') }}" required pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]+">
                                 <small id="helpApellidos">Solo letras, sin espacios ni guiones.</small>

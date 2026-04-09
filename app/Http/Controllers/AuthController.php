@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\RegistroSeguridad;
 use Illuminate\Http\Request;
+use App\Models\Productos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
@@ -55,6 +56,7 @@ class AuthController extends Controller
             'apellidos' => $validado['apellidos'],
             'email' => $validado['email'],
             'password' => Hash::make($validado['password']),
+            'rol'=>'cliente',
         ]);
 
         RegistroSeguridad::create([
@@ -67,7 +69,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($usuario);
-        return redirect()->route('pagina');
+        return redirect()->route('compras.Bienvenida')->with('success', 'Registro exitoso. Bienvenido a la tienda.');
     }
 
     public function login(Request $request)
@@ -86,8 +88,10 @@ class AuthController extends Controller
             'password.required' => 'Se necesita una contraseña',
             'email.email' => 'El email debe ser válido'
         ]);
-
+        
+            //reemplazando 
         if (Auth::attempt($credenciales)) {
+    
             $request->session()->regenerate();
             RateLimiter::clear($clave);
 
@@ -100,7 +104,16 @@ class AuthController extends Controller
                 'nivel_riesgo' => 'bajo',
             ]);
 
-            return redirect()->route('pagina');
+            $rol = Auth::user()->rol;
+            if ($rol == 'admin') {
+                return redirect()->route('admin.inicio'); 
+            }
+
+            if ($rol == 'cliente') {
+                return redirect()->route('compras.Bienvenida');
+            }
+
+            return redirect()->route('compras.Bienvenida');
         }
 
         RateLimiter::hit($clave, 60);
